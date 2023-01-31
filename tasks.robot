@@ -11,6 +11,7 @@ Library             RPA.Tables
 Library             RPA.PDF
 Library             RPA.Archive
 Library             RPA.Dialogs
+Library             RPA.Robocorp.Vault
 
 
 *** Variables ***
@@ -19,6 +20,7 @@ ${RECEIPT_PATH}=    ${OUTPUT_DIR}${/}Receipts
 
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
+    ${secret}=    Reading Secrets
     Open the robot order website
     ${user_input}=    Collect file download URL from user
     Download the Orders File    ${user_input}
@@ -38,6 +40,10 @@ Order robots from RobotSpareBin Industries Inc
 
 
 *** Keywords ***
+Reading Secrets
+    ${secret}=    Get Secret    downloadurl
+    RETURN    ${secret}
+
 Open the robot order website
     Open Available Browser    https://robotsparebinindustries.com/#/robot-order
 
